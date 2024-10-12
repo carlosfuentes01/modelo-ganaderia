@@ -1,5 +1,5 @@
 <?php
-include 'conect.php';
+include ''; //conexion a la base de datos
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_animal = $_POST['id_animal'];
