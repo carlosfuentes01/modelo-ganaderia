@@ -1,5 +1,5 @@
 <?php
-include 'conect.php';
+include ''; // conexion a la base de datos
 
 $sql = "SELECT * FROM animales";
 $result = $conexion->query($sql);
