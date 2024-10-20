@@ -30,6 +30,4 @@ if (mysqli_num_rows($check_result) > 0) {
     }
 }
 
-// Cerrar la conexión
-mysqli_close($conexion);
 ?>
