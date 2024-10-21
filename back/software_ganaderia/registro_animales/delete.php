@@ -1,11 +1,17 @@
+<a href="read.php">regresar a lectura de vacas</a>
 <?php
-include ''; //conexion a la base de datos
+include '../../conexion/conexion.php'; //conexion a la base de datos
+session_start();
+// Verifica si el usuario está autenticado
+if (!isset($_SESSION['dni'])) {
+    header("Location: login.php");
+    exit;
+}
+$id = $_REQUEST['id'];
 
-$id = $_GET['id_animal'];
+$sql = "DELETE FROM vacas WHERE id=$id";
 
-$sql = "DELETE FROM animales WHERE id_animal=$id";
-
-if ($conexion->query($sql) === TRUE) {
+if ($conexion->query($sql) === TRUE ) {
     echo "Registro eliminado exitosamente";
 } else {
     echo "Error: " . $conexion->error;

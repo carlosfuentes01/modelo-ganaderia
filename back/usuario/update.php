@@ -1,43 +1,46 @@
 <?php
-include '';// aqui va el php de la conexion de la base de datos
+session_start();
+include '../conexion/conexion.php'; // Conexión a la base de datos
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    $sql = "SELECT * FROM users WHERE id = :id";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':id', $id);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+// Verifica si el usuario está autenticado
+if (!isset($_SESSION['dni'])) {
+    header("Location: login.php");
+    exit;
 }
 
-if (isset($_POST['submit'])) {
-    $nombre = $_POST['nombre'];
-    $contrasena = password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
-    $cedula = $_POST['cedula'];
-    $gmail = $_POST['gmail'];
+// Obtener el DNI del usuario de la sesión
+$dni = $_SESSION['dni'];
 
-    $sql = "UPDATE users SET nombre = :nombre, contrasena = :contrasena, cedula = :cedula, gmail = :gmail WHERE id = :id";
-    $stmt = $conn->prepare($sql);
+// Obtener los datos del usuario actual
+$sql = "SELECT * FROM usuario WHERE dni = $dni";
+$result = $conexion->query($sql);
 
-    $stmt->bindParam(':nombre', $nombre);
-    $stmt->bindParam(':contrasena', $contrasena);
-    $stmt->bindParam(':cedula', $cedula);
-    $stmt->bindParam(':gmail', $gmail);
-    $stmt->bindParam(':id', $id);
+if ($result->num_rows == 1) {
+    $row = $result->fetch_assoc();
+}
 
-    if ($stmt->execute()) {
-        echo "Usuario actualizado exitosamente.";
+// Procesar la actualización de datos
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $contra = $_POST['contra'];
+
+    $sql = "UPDATE usuario SET usuario='$username', gmail='$email', contra='$contra' WHERE dni='$dni'";
+
+    if ($conexion->query($sql) === TRUE) {
+        echo "Datos actualizados exitosamente!";
+        header("Location: read.php");
+        exit;
     } else {
-        echo "Error al actualizar el usuario.";
+        echo "Error al actualizar los datos: " . $conexion->error;
     }
 }
 ?>
 
-<form method="POST" action="update.php?id=<?php echo $user['id']; ?>">
-    <input type="text" name="nombre" value="<?php echo $user['nombre']; ?>" required><br>
-    <input type="password" name="contrasena" placeholder="Nueva Contraseña" required><br>
-    <input type="text" name="cedula" value="<?php echo $user['cedula']; ?>" required><br>
-    <input type="email" name="gmail" value="<?php echo $user['gmail']; ?>" required><br>
-    <button type="submit" name="submit">Actualizar</button>
+<h2>Editar Datos</h2>
+<form method="POST" action="">
+    Nombre de Usuario: <input type="text" name="username" value="<?php echo $row['usuario']; ?>" required><br>
+    Email: <input type="email" name="email" value="<?php echo $row['gmail']; ?>" required><br>
+    Contraseña: <input type="password" name="contra" value="<?php echo $row['contra']; ?>" required><br>
+    <input type="submit" value="Actualizar">
 </form>
