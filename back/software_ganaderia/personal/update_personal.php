@@ -9,12 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $apellidos = $_POST['apellidos'];
     $tarea = $_POST['tarea'];
 
-    $sql = "UPDATE personal SET 
-                dni='$dni',
-                nombres='$nombres', 
-                apellidos='$apellidos',
-                tarea='$tarea' 
-            WHERE dni=$id";
+    $sql = "UPDATE personal p join finca_has_personal fp on p.dni = fp.personal_dni join finca f on fp.finca_id=f.id 
+    set dni= '$dni',
+    nombres='$nombres',
+    apellidos ='$apellidos',
+    tarea='$tarea'
+    WHERE p.dni = $id and f.usuario_dni=$id";
 
     if ($conexion->query($sql) === TRUE) {
         echo "Actualización exitosa!";
