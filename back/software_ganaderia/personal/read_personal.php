@@ -1,7 +1,9 @@
 <?php
 include ' ';//conexion a la base de datos
 
-$sql = "SELECT * FROM personal";
+$sql = "select p.* from personal p join finca_has_personal fp 
+on p.dni = fp.personal_dni join finca f on fp.finca_id=f.id 
+where f.usuario_dni = $_SESSION";
 $resultado = $conexion->query($sql);
 
 if ($resultado->num_rows > 0) {
