@@ -22,9 +22,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: " . $sql . "<br>" . $conexion->error;
     }
 } else {
-    $sql = "SELECT * FROM personal WHERE dni=$id";
-    $resultado = $conexion->query($sql);
     $fila = $resultado->fetch_assoc();
+    $sql = "select p.* from personal p join finca_has_personal fp 
+    on p.dni = fp.personal_dni join finca f on fp.finca_id=f.id 
+    where f.usuario_dni = $_SESSION";
+    $resultado = $conexion->query($sql);
 ?>
     <form method="POST" action="">
         DNI: <input type="text" name="dni" value="<?php echo $fila['dni']; ?>" required><br>
