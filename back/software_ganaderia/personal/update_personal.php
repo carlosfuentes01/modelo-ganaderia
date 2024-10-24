@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     nombres='$nombres',
     apellidos ='$apellidos',
     tarea='$tarea'
-    WHERE p.dni = $id and f.usuario_dni=$id";
+    WHERE p.dni = $id and f.usuario_dni=$_SESSION";
 
     if ($conexion->query($sql) === TRUE) {
         echo "Actualización exitosa!";
