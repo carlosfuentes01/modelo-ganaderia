@@ -1,8 +1,8 @@
 <?php 
-$host="bj8tsn2ymfxavmfpfcix-mysql.services.clever-cloud.com";
-$user="uxz3x1uzsc0h04df";
-$psw="ZAARGJZN6U6q16evB0Cj";
-$bd="bj8tsn2ymfxavmfpfcix";
+$host="brftiblxal2dldsiqbzr-mysql.services.clever-cloud.com";
+$user="ut75ds3u5guzudxh";
+$psw="SOlcWcKeMxJwt6rTEEh";
+$bd="brftiblxal2dldsiqbzr";
 
 $conexion=mysqli_connect($host,$user,$psw,$bd);
 if(!$conexion){
