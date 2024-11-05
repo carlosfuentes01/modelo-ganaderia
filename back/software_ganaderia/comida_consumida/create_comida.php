@@ -1,50 +1,50 @@
 <?php
-include 'conexion.php'; // No Se Pude Agregar masde una comida al dia la vaca ya q esta se guarda por la fecha 
+include '../../conexion/conexion.php';
+
+
+$inventario_query = "SELECT id, nombre FROM inventario";
+$inventario_result = mysqli_query($conexion, $inventario_query);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $identificacion_vaca = $_POST['identificacion_vaca']; 
+    $identificacion = $_POST['identificacion'];
     $inventario_id = $_POST['inventario_id'];
     $fecha_consumo = $_POST['fecha_consumo'];
     $cantidad_consumida = $_POST['cantidad_consumida'];
 
 
-    $sql_vaca = "SELECT id FROM vacas WHERE identificacion = '$identificacion_vaca'";
-    $resultado_vaca = $conexion->query($sql_vaca);
+    $vaca_query = "SELECT id FROM vacas WHERE identificacion='$identificacion'";
+    $vaca_result = mysqli_query($conexion, $vaca_query);
 
-    if ($resultado_vaca->num_rows > 0) {
-        $fila_vaca = $resultado_vaca->fetch_assoc();
-        $vacas_id_animal = $fila_vaca['id']; 
+    if (mysqli_num_rows($vaca_result) > 0) {
+        $vaca_row = mysqli_fetch_assoc($vaca_result);
+        $vacas_id_animal = $vaca_row['id'];
 
+        $insert_query = "INSERT INTO comida_consumida (vacas_id_animal, inventario_id, fecha_consumo, cantidad_consumida) 
+                         VALUES ('$vacas_id_animal', '$inventario_id', '$fecha_consumo', '$cantidad_consumida')";
 
-        $sql = "INSERT INTO comida_consumida (vacas_id_animal, inventario_id, fecha_consumo, cantidad_consumida) 
-                VALUES ('$vacas_id_animal', '$inventario_id', '$fecha_consumo', '$cantidad_consumida')";
-
-        if ($conexion->query($sql) === TRUE) {
-            echo "Comida consumida agregada exitosamente.";
+        if (mysqli_query($conexion, $insert_query)) {
+            echo "Registro de comida consumida agregado exitosamente.";
         } else {
-            echo "Error al insertar: " . $conexion->error;
+            echo "Error: " . mysqli_error($conexion);
         }
     } else {
-        echo "No se encontró una vaca con la identificación proporcionada.";
+        echo "Vaca no encontrada con la identificación ingresada.";
     }
 }
 ?>
 
-<form method="POST" action="">
-    Identificación de la Vaca: <input type="text" name="identificacion_vaca" required><br>
-    Inventario: 
-    <select name="inventario_id" required>
-        <?php
-        $sql_inventario = "SELECT id, nombre FROM inventario";
-        $result_inventario = $conexion->query($sql_inventario);
 
-        while ($row = $result_inventario->fetch_assoc()) {
-            echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . "</option>";
-        }
-        ?>
+<form method="POST" action="create_comida.php">
+    Identificación de la Vaca: <input type="text" name="identificacion" required><br>
+
+    <label for="inventario_id">Inventario:</label>
+    <select name="inventario_id" required>
+        <?php while ($inventario = mysqli_fetch_assoc($inventario_result)) { ?>
+            <option value="<?php echo $inventario['id']; ?>"><?php echo $inventario['nombre']; ?></option>
+        <?php } ?>
     </select><br>
+
     Fecha de Consumo: <input type="date" name="fecha_consumo" required><br>
-    Cantidad Consumida: <input type="number" name="cantidad_consumida" required><br>
-    <input type="submit" value="Agregar Consumo de Comida">
+    Cantidad Consumida: <input type="number" step="0.01" name="cantidad_consumida" required><br>
+    <input type="submit" value="Registrar Comida Consumida">
 </form>

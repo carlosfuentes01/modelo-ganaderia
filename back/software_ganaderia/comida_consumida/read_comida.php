@@ -1,24 +1,29 @@
 <?php
-include 'conexion.php';
+include '../../conexion/conexion.php';
 
-$usuario_dni = 1;
+$sql = "SELECT * FROM comida_consumida";
+$result = mysqli_query($conexion, $sql);
 
-$sql = "SELECT v.identificacion AS vaca_identificacion, i.nombre AS inventario_nombre, 
-               c.fecha_consumo, c.cantidad_consumida 
-        FROM comida_consumida c 
-        JOIN vacas v ON c.vacas_id_animal = v.id 
-        JOIN inventario i ON c.inventario_id = i.id 
-        JOIN potrero p ON v.potrero_id = p.id 
-        JOIN finca f ON p.finca_id = f.id 
-        JOIN usuario u ON f.usuario_dni = u.dni 
-        WHERE u.dni = '$usuario_dni'";
+echo "<table border='1'>
+<tr>
+    <th>ID Vaca</th>
+    <th>ID Inventario</th>
+    <th>Fecha Consumo</th>
+    <th>Cantidad Consumida</th>
+    <th>Acciones</th>
+</tr>";
 
-$resultado = $conexion->query($sql);
-
-while ($row = $resultado->fetch_assoc()) {
-    echo "Identificación de la Vaca: " . $row['vaca_identificacion'] . " - Nombre del Inventario: " . $row['inventario_nombre'] . 
-         " - Fecha de Consumo: " . $row['fecha_consumo'] . " - Cantidad Consumida: " . $row['cantidad_consumida'] . "<br>";
+while ($row = mysqli_fetch_assoc($result)) {
+    echo "<tr>
+        <td>{$row['vacas_id_animal']}</td>
+        <td>{$row['inventario_id']}</td>
+        <td>{$row['fecha_consumo']}</td>
+        <td>{$row['cantidad_consumida']}</td>
+        <td>
+            <a href='update_comida.php?vacas_id_animal={$row['vacas_id_animal']}&inventario_id={$row['inventario_id']}'>Editar</a> |
+            <a href='delete_comida.php?vacas_id_animal={$row['vacas_id_animal']}&inventario_id={$row['inventario_id']}'>Eliminar</a>
+        </td>
+    </tr>";
 }
+echo "</table>";
 ?>
-
-

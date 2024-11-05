@@ -1,61 +1,50 @@
 <?php
-include 'conexion.php';
-
-
-$vacas_result = $conexion->query("SELECT id, identificacion FROM vacas");
-
-
-$inventarios_result = $conexion->query("SELECT id, nombre FROM inventario");
+include '../../conexion/conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vacas_id_animal = $_POST['vacas_id_animal'];
     $inventario_id = $_POST['inventario_id'];
     $fecha_consumo = $_POST['fecha_consumo'];
     $cantidad_consumida = $_POST['cantidad_consumida'];
-    $usuario_dni = 1; 
 
-    $sql = "UPDATE comida_consumida c
-            JOIN vacas v ON c.vacas_id_animal = v.id
-            JOIN potrero p ON v.potrero_id = p.id
-            JOIN finca f ON p.finca_id = f.id
-            JOIN usuario u ON f.usuario_dni = u.dni
-            SET c.inventario_id = '$inventario_id', 
-                c.fecha_consumo = '$fecha_consumo', 
-                c.cantidad_consumida = '$cantidad_consumida'
-            WHERE c.vacas_id_animal = '$vacas_id_animal' 
-              AND u.dni = '$usuario_dni'";
+    $sql = "UPDATE comida_consumida SET 
+            fecha_consumo='$fecha_consumo', 
+            cantidad_consumida='$cantidad_consumida' 
+            WHERE vacas_id_animal='$vacas_id_animal' AND inventario_id='$inventario_id'";
 
-    if ($conexion->query($sql) === TRUE) {
-        echo "Consumo de comida actualizado exitosamente.";
+    if (mysqli_query($conexion, $sql)) {
+        echo "Registro actualizado exitosamente";
     } else {
-        echo "Error: " . $sql . "<br>" . $conexion->error;
+        echo "Error al actualizar el registro: " . mysqli_error($conexion);
+    }
+} else {
+    $vacas_id_animal = $_GET['vacas_id_animal'] ?? null; 
+    $inventario_id = $_GET['inventario_id'] ?? null; 
+
+    if ($vacas_id_animal && $inventario_id) {
+        $sql = "SELECT * FROM comida_consumida WHERE vacas_id_animal='$vacas_id_animal' AND inventario_id='$inventario_id'";
+        $result = mysqli_query($conexion, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+        } else {
+            echo "Registro no encontrado.";
+            exit; 
+        }
+    } else {
+        echo "ID de animal o inventario no proporcionados.";
+        exit; 
     }
 }
 ?>
 
 
-<form method="POST" action="">
-    Identificación de la Vaca: 
-    <select name="vacas_id_animal" required>
-        <?php while ($vaca = $vacas_result->fetch_assoc()) { ?>
-            <option value="<?php echo $vaca['id']; ?>">
-                <?php echo $vaca['identificacion']; ?>
-            </option>
-        <?php } ?>
-    </select>
-    <br>
-    
-    Nombre del Inventario: 
-    <select name="inventario_id" required>
-        <?php while ($inventario = $inventarios_result->fetch_assoc()) { ?>
-            <option value="<?php echo $inventario['id']; ?>">
-                <?php echo $inventario['nombre']; ?>
-            </option>
-        <?php } ?>
-    </select>
-    <br>
-    
-    Fecha de Consumo: <input type="date" name="fecha_consumo" required><br>
-    Cantidad Consumida: <input type="number" step="0.01" name="cantidad_consumida" required><br>
-    <input type="submit" value="Actualizar Consumo de Comida">
+<?php if (isset($row)): ?>
+<form method="POST" action="update_comida.php">
+    <input type="hidden" name="vacas_id_animal" value="<?php echo htmlspecialchars($row['vacas_id_animal']); ?>">
+    <input type="hidden" name="inventario_id" value="<?php echo htmlspecialchars($row['inventario_id']); ?>">
+    Fecha de Consumo: <input type="date" name="fecha_consumo" value="<?php echo htmlspecialchars($row['fecha_consumo']); ?>" required>
+    Cantidad Consumida: <input type="number" step="0.01" name="cantidad_consumida" value="<?php echo htmlspecialchars($row['cantidad_consumida']); ?>" required>
+    <input type="submit" value="Actualizar">
 </form>
+<?php endif; ?>
