@@ -1,4 +1,4 @@
-<a href='create_enfermedades.php'>Crear Enfermedad</a>
+<a href='create_enfermedades.php'>Añadir Enfermedad</a>
 <?php
 include '../../conexion/conexion.php';
 session_start();

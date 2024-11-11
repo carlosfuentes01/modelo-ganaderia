@@ -5,7 +5,7 @@ $psw="SOlcWcKeMxJwt6rTEEh";
 $bd="brftiblxal2dldsiqbzr";
 $port="21785";
 
-
+date_default_timezone_set('America/Bogota');
 $conexion=mysqli_connect($host,$user,$psw,$bd,$port);
 if(!$conexion){
 	die("Problemas con la conexión".mysql_connect_error());

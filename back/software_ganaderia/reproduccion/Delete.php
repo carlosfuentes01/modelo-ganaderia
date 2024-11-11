@@ -3,7 +3,7 @@
 include '../../conexion/conexion.php';
 session_start();
 
-$id = $_REQUEST['id'];
+$id = $_REQUEST['idcontrol_embarazo'];
 
 $sql = "DELETE FROM control_embarazo WHERE idcontrol_embarazo=$id";
 

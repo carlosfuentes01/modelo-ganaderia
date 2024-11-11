@@ -7,14 +7,11 @@ session_start();
 <html>
 <head>
     <title>Control de Embarazo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
+    <div>
         <h2>Registros de Embarazo</h2>
-        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#registroModal">
-            Nuevo Registro
-        </button>
+        <a href="creacion_control_embarazo.php">Crear Registro de reproduccion</a>
 
         <!-- Tabla de registros -->
         <?php
@@ -24,8 +21,6 @@ session_start();
             echo "<table class='table table-bordered'>
                     <thead>
                         <tr>
-                            <th>Código</th>
-                            <th>Raza</th>
                             <th>Fecha de descubrimiento</th>
                             <th>Modo de concepción</th>
                             <th>Fecha pronosticada de parto</th>
@@ -36,18 +31,23 @@ session_start();
                     </thead>
                     <tbody>";
             while($row = $result->fetch_assoc()) {
+                
                 echo "<tr>
-                        <td>".$row["codigo"]."</td>
-                        <td>".$row["raza"]."</td>
                         <td>".$row["fecha_deteccion"]."</td>
                         <td>".$row["modo_concepcion"]."</td>
                         <td>".$row["fecha_estimada_de_parto"]."</td>
                         <td>".$row["fecha_aproximada_parto"]."</td>
                         <td>".$row["descripcion"]."</td>
                         <td>
-                            <button class='btn btn-sm btn-warning' onclick='editarRegistro(".$row["idcontrol_embarazo"].")'>Editar</button>
-                            <button class='btn btn-sm btn-danger' onclick='eliminarRegistro(".$row["idcontrol_embarazo"].")'>Eliminar</button>
-                        </td>
+                    <form method='POST' action='Update.php' style='display:inline;'>
+                        <input type='hidden' name='idcontrol_embarazo' value='" . $row['idcontrol_embarazo'] . "'>
+                        <input type='submit' value='Editar'>
+                    </form> |
+                    <form method='POST' action='Delete.php' style='display:inline;'>
+                        <input type='hidden' name='idcontrol_embarazo' value='" . $row['idcontrol_embarazo'] . "'>
+                        <input type='submit' value='Eliminar'>
+                    </form>
+                </td>
                     </tr>";
             }
             echo "</tbody></table>";

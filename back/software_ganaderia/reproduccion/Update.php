@@ -1,83 +1,77 @@
 <!-- update.php -->
+
+<a href="Read.php">ir a </a>
 <?php
 include '../../conexion/conexion.php';
 session_start();
 
-$id = $_REQUEST['id'];
+$id = $_POST['idcontrol_embarazo'];
+$sql1 = "
+    SELECT * FROM modo_concepcion
+";
+$update_query="SELECT * from control_embarazo where idcontrol_embarazo = $id";
+$update_conexion=$conexion->query($update_query);
+$update=$update_conexion->fetch_assoc();
+$modo = $conexion->query($sql1);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $codigo = $_POST['codigo'];
-    $raza = $_POST['raza'];
-    $fecha_descubrimiento = $_POST['fecha_descubrimiento'];
+$hoy = date("Y-n-d");
+if (isset($_POST['fecha_estimada_de_parto'])) {
+
+    $fecha_deteccion = $_POST['fecha_deteccion'];
+    $fecha_estimada_de_parto = $_POST['fecha_estimada_de_parto'];
     $modo_concepcion = $_POST['modo_concepcion'];
-    $fecha_pronosticada_parto = $_POST['fecha_pronosticada_parto'];
-    $fecha_aproximada_parto = $_POST['fecha_aproximada_parto'];
     $descripcion = $_POST['descripcion'];
+    $fecha_aproximada_parto = $_POST['fecha_aproximada_parto'];
+    if ($_POST['fecha_aproximada_parto'] == "") {
 
-    $sql = "UPDATE control_embarazo SET 
-            codigo='$codigo',
-            raza='$raza',
-            fecha_deteccion='$fecha_descubrimiento',
-            modo_concepcion='$modo_concepcion',
-            fecha_estimada_de_parto='$fecha_pronosticada_parto',
-            fecha_aproximada_parto='$fecha_aproximada_parto',
-            descripcion='$descripcion'
-            WHERE idcontrol_embarazo=$id";
+        $fecha_aproximada_parto="NULL";
+
+
+
+        $sql = "INSERT INTO `control_embarazo`(`fecha_deteccion`, `fecha_aproximada_parto`, `descripcion`, `fecha_estimada_de_parto`, `modo_concepcion`) VALUES ('$fecha_deteccion',$fecha_aproximada_parto,'$descripcion','$fecha_estimada_de_parto',$modo_concepcion)";
+    }else{
+        $sql = "INSERT INTO `control_embarazo`(`fecha_deteccion`, `fecha_aproximada_parto`, `descripcion`, `fecha_estimada_de_parto`, `modo_concepcion`) VALUES ('$fecha_deteccion','$fecha_aproximada_parto', '$descripcion','$fecha_estimada_de_parto',$modo_concepcion)";
+    }
+
+
+
+    echo $sql;
 
     if ($conexion->query($sql) === TRUE) {
-        header("Location: index.php");
+        echo "Reporte médico registrado exitosamente!"; 
     } else {
         echo "Error: " . $sql . "<br>" . $conexion->error;
     }
 }
-
-$sql = "SELECT * FROM control_embarazo WHERE idcontrol_embarazo=$id";
-$result = $conexion->query($sql);
-$row = $result->fetch_assoc();
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Actualizar Registro de Embarazo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h2>Actualizar Registro de Embarazo</h2>
-        <form method="POST">
-            <div class="mb-3">
-                <label>Código:</label>
-                <input type="text" name="codigo" value="<?php echo $row['codigo']; ?>" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Raza:</label>
-                <input type="text" name="raza" value="<?php echo $row['raza']; ?>" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Fecha de descubrimiento:</label>
-                <input type="date" name="fecha_descubrimiento" value="<?php echo $row['fecha_deteccion']; ?>" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Modo de concepción:</label>
-                <input type="text" name="modo_concepcion" value="<?php echo $row['modo_concepcion']; ?>" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Fecha pronosticada de parto:</label>
-                <input type="date" name="fecha_pronosticada_parto" value="<?php echo $row['fecha_estimada_de_parto']; ?>" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Fecha aproximada de parto:</label>
-                <input type="date" name="fecha_aproximada_parto" value="<?php echo $row['fecha_aproximada_parto']; ?>" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Descripción:</label>
-                <textarea name="descripcion" class="form-control"><?php echo $row['descripcion']; ?></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
-            <a href="index.php" class="btn btn-secondary">Cancelar</a>
-        </form>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<form method="POST" action="">
+    <label for="fecha_deteccion">Fecha de deteccion:</label>
+    <input type="date" name="fecha_deteccion" required value="<?php echo $update['fecha_deteccion']; ?>"><br>
+    modo concepcion:
+    <select name="modo_concepcion">
+    <?php
+        while ($mod = $modo->fetch_assoc()) {
+           
+            if ($mod['id'] == $update['modo_concepcion']) {
+                echo "<option selected value='{$mod['id']}'>{$mod['nombre_modo']} </option>";
+            }else {
+                echo "<option value='{$mod['id']}'>{$mod['nombre_modo']} </option>"; 
+            }
+            
+        }
+        ?>
+    </select><br>
+
+
+    <label for="fecha_estimada_de_parto">Fecha esperada parto:</label>
+    <input type="date" name="fecha_estimada_de_parto" required value="<?php echo $update['fecha_estimada_de_parto']; ?>"><br>
+
+    <label for="fecha_aproximada_parto">Fecha del parto:</label>
+    <input type="date" name="fecha_aproximada_parto" value="<?php echo $update['fecha_aproximada_parto']; ?>"><br>
+
+
+    <label>Descripción:</label>
+    <input type="text" name="descripcion" required value="<?php echo $update['descripcion']; ?>"></input><br>
+    <input type="submit" value="Registrar control embarazo">
+</form>

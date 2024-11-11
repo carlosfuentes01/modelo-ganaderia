@@ -1,4 +1,5 @@
 <?php
+
 include '../../conexion/conexion.php';
 session_start();
 
@@ -7,10 +8,11 @@ if (!isset($_SESSION['dni'])) {
     exit;
 }
 
+$hoy = date("Y-n-d");  
 $sesion = $_SESSION['dni'];
 
 $sql1 = "
-    SELECT v.id, v.nombre 
+    SELECT v.id, v.nombre,v.identificacion 
     FROM vacas v
     INNER JOIN potrero p ON v.potrero_id = p.id
     INNER JOIN finca f ON p.finca_id = f.id
@@ -26,23 +28,31 @@ $sql2 = "
 $tratamientos = $conexion->query($sql2);
 
 if (isset($_POST['vaca'])) {
+    
     $vaca_id = $_POST['vaca'];
     $fecha_chequeo = $_POST['fecha_chequeo'];
-    $fecha_proximo_chequeo = $_POST['fecha_proximo_chequeo'];
     $notas_adicionales = $_POST['notas_adicionales'];
+    $fecha_proximo_chequeo = $_POST['fecha_proximo_chequeo'];
+    if ($_POST['fecha_proximo_chequeo']== "") {
 
-    $sql = "INSERT INTO reporte_medico (fecha_chequeo, fecha_proximo_chequeo, notas_adicionales)
-            VALUES ('$fecha_chequeo', '$fecha_proximo_chequeo', '$notas_adicionales')";
+        $fecha_proximo_chequeo="NULL";
+        $sql = "INSERT INTO reporte_medico (fecha_chequeo, fecha_proximo_chequeo, notas_adicionales,id_vaca)
+        VALUES ('$fecha_chequeo',$fecha_proximo_chequeo, '$notas_adicionales',$vaca_id)";
+
+    }else{
+        $sql = "INSERT INTO reporte_medico (fecha_chequeo, fecha_proximo_chequeo, notas_adicionales,id_vaca)
+        VALUES ('$fecha_chequeo','$fecha_proximo_chequeo', '$notas_adicionales',$vaca_id)";
+
+    }
+
     
+    
+     echo $sql;
     if ($conexion->query($sql) === TRUE) {
         echo "Reporte médico registrado exitosamente!";
         
         $reporte_medico_id = $conexion->insert_id;
 
-        // Inserta la relación entre reporte_medico y vacas en la tabla reporte_medico_vaca
-        $sql_reporte_vaca = "INSERT INTO reporte_medico_vaca (reporte_medico_id_reporte, vacas_id_animal)
-                             VALUES ($reporte_medico_id, $vaca_id)";
-        $conexion->query($sql_reporte_vaca);
 
         // Inserta los tratamientos seleccionados en la relación reporte_medico_has_tratamiento
         if (!empty($_POST['tratamientos'])) {
@@ -70,16 +80,16 @@ if (isset($_POST['vaca'])) {
     <select name="vaca" required>
         <?php
         while ($vaca = $vacas->fetch_assoc()) {
-            echo "<option value='{$vaca['id']}'>{$vaca['nombre']} - ID: {$vaca['id']}</option>";
+            echo "<option value='{$vaca['id']}'>{$vaca['nombre']} - Identificación: {$vaca['identificacion']}</option>";
         }
         ?>
     </select><br>
 
     <label for="fecha_chequeo">Fecha de Chequeo:</label>
-    <input type="date" name="fecha_chequeo" required><br>
+    <input type="date" name="fecha_chequeo" required value="<?php echo $hoy; ?>"><br>
 
     <label for="fecha_proximo_chequeo">Fecha Próximo Chequeo:</label>
-    <input type="date" name="fecha_proximo_chequeo" required><br>
+    <input type="date" name="fecha_proximo_chequeo" ><br>
 
     <label for="notas_adicionales">Notas Adicionales:</label>
     <textarea name="notas_adicionales"></textarea><br>

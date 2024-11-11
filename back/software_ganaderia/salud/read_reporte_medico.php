@@ -13,11 +13,10 @@ $sesion = $_SESSION['dni'];
 
 $sql1 = "
     SELECT rm.id_reporte AS reporte_id, rm.fecha_chequeo, rm.fecha_proximo_chequeo, rm.notas_adicionales, 
-           v.id AS vaca_id, v.identificacion AS vaca_identificacion, v.nombre AS vaca_nombre,
+        v.identificacion AS vaca_identificacion, v.nombre AS vaca_nombre,
            rm.control_embarazo_idcontrol_embarazo AS esta_prenada
     FROM reporte_medico rm
-    INNER JOIN reporte_medico_vaca rmv ON rm.id_reporte = rmv.reporte_medico_id_reporte
-    INNER JOIN vacas v ON rmv.vacas_id_animal = v.id
+    INNER JOIN vacas v ON rm.id_vaca = v.id
     INNER JOIN potrero p ON v.potrero_id = p.id
     INNER JOIN finca f ON p.finca_id = f.id
     LEFT JOIN control_embarazo ce ON rm.control_embarazo_idcontrol_embarazo = ce.idcontrol_embarazo
