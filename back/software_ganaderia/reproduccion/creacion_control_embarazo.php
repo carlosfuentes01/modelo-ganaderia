@@ -47,7 +47,7 @@ if (isset($_POST['fecha_estimada_de_parto'])) {
 
 <form method="POST" action="">
     <label for="fecha_deteccion">Fecha de deteccion:</label>
-    <input type="date" name="fecha_deteccion" required value="<?php echo $hoy; ?>"><br>
+    <input type="date" name="fecha_deteccion" required value="<?php echo $hoy; ?>" max="<?php echo $hoy; ?>"><br>
     modo concepcion:
     <select name="modo_concepcion">
     <?php

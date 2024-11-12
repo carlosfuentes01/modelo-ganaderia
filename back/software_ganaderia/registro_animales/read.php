@@ -18,8 +18,8 @@ $sql1="SELECT * from vacas where potrero_id in
 $vacas = $conexion->query($sql1);
 
 if ($vacas->num_rows > 0) {
-    echo "
-    <table border='1'>
+    ?>
+    <table>
             <tr>
                 <th>Identificación</th>
                 <th>Nombre</th>
@@ -29,16 +29,18 @@ if ($vacas->num_rows > 0) {
                 <th>Razas</th>
                 <th>Potrero</th>
                 <th>Acciones</th>
-            </tr>";
+            </tr>
+
+          <?php   
     
     while($row = $vacas->fetch_assoc()) {
-        echo "<tr>
-                 <td>".$row["identificacion"]."</td>
-                <td>".$row["nombre"]."</td>
-                <td>".$row["fecha_de_registro_animal"]."</td>
-                <td>".$row["genero"]."</td>
-                <td>".$row["descartada"]."</td>
-                <td>";
+       ?>
+                 <td><?=$row["identificacion"]?></td>
+                <td><?=$row["nombre"]?></td>
+                <td><?=$row["fecha_de_registro_animal"]?></td>
+                <td><?=$row["genero"]?></td>
+                <td><?=$row["descartada"]?></td>
+                <td> <?php
                 $sql2= "SELECT * FROM raza
                 where id_raza in(select raza_id_raza from razas_de_la_vaca
                 where vacas_id_animal =$row[id])";
@@ -47,8 +49,9 @@ if ($vacas->num_rows > 0) {
                while ($raza =$razas ->fetch_assoc()) {
                     echo $raza['nombre']." ";
                     
-                };echo"</td>
-                <td>";
+                }?>
+                </td>
+                <td><?php
                 $sql3= "SELECT * FROM potrero
                 where id = $row[potrero_id]
                 ";
@@ -57,19 +60,22 @@ if ($vacas->num_rows > 0) {
                while ($potrero =$potreros ->fetch_assoc()) {
                     echo $potrero['nombre']." ";
                     
-                };echo"</td>
+                }?></td>
                 <td>
                 <form method='POST' action='update.php'>
-    <input type='hidden' name='id' required value =".$row['id']."><br>
+    <input type='hidden' name='id' required value ="<?=$row['id']?>"><br>
     <input type='submit' value='Editar'>
 </form>|
                     <form method='POST' action='delete.php'>
-    <input type='hidden' name='id' required value =".$row['id']."><br>
+    <input type='hidden' name='id' required value ="<?=$row['id']?>"><br>
     <input type='submit' value='Eliminar'>
 </form>
-            </tr>";
+            </tr>
+            <?php
     }
-    echo "</table>";
+    ?>
+    </table>
+    <?php
 } else {
     echo "No hay registros";
 }

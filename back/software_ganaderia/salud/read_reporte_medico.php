@@ -25,8 +25,8 @@ $sql1 = "
 $reportes = $conexion->query($sql1);
 
 if ($reportes->num_rows > 0) {
-    echo "
-    <table border='1'>
+    ?>
+    <table>
         <tr>
             <th>Vaca (Identificación)</th>
             <th>Nombre de la Vaca</th>
@@ -36,27 +36,29 @@ if ($reportes->num_rows > 0) {
             <th>¿Está Preñada?</th>
             <th>Tratamientos y Enfermedades</th>
             <th>Acciones</th>
-        </tr>";
-    
+        </tr>
+    <?php
     while ($row = $reportes->fetch_assoc()) {
-        echo "<tr>
-                <td>".$row["vaca_identificacion"]."</td>
-                <td>".$row["vaca_nombre"]."</td>
-                <td>".$row["fecha_chequeo"]."</td>
-                <td>".$row["fecha_proximo_chequeo"]."</td>
-                <td>".$row["notas_adicionales"]."</td>
-                <td>";
-        
+        ?> 
+        <tr>
+                <td><?=$row["vaca_identificacion"]?></td>
+                <td><?=$row["vaca_nombre"]?></td>
+                <td><?=$row["fecha_chequeo"]?></td>
+                <td><?=$row["fecha_proximo_chequeo"]?></td>
+                <td><?=$row["notas_adicionales"]?></td>
+                <td>
+        <?php
         // Mostrar "Sí" si la vaca está preñada, de lo contrario "No"
         if ($row['esta_prenada'] !== null) {
             echo "Sí";
         } else {
             echo "No";
         }
+?>
+        </td>
+              <td>
 
-        echo "</td>
-              <td>";
-
+              <?php
         // Consulta para obtener los tratamientos y sus enfermedades asociadas al reporte médico
         $sql2 = "
             SELECT t.tipo AS tratamiento, e.tipo AS enfermedad
@@ -71,20 +73,23 @@ if ($reportes->num_rows > 0) {
             echo "Tratamiento: ".$tratamiento['tratamiento']." - Enfermedad: ".$tratamiento['enfermedad']."<br><br>";
         }
 
-        echo "</td>
+        ?>
+        </td>
               <td>
                 <form method='POST' action='update_reporte_medico.php' style='display:inline;'>
-                    <input type='hidden' name='id' value='".$row['reporte_id']."'>
+                    <input type='hidden' name='id' value='<?=$row['reporte_id']?>'>
                     <input type='submit' value='Editar'>
                 </form> 
                 <form method='POST' action='delete_reporte_medico.php' style='display:inline;'>
-                    <input type='hidden' name='id' value='".$row['reporte_id']."'>
+                    <input type='hidden' name='id' value='<?=$row['reporte_id']?>'>
                     <input type='submit' value='Eliminar'>
                 </form>
               </td>
-            </tr>";
+            </tr>
+            <?php
     }
-    echo "</table>";
+    ?></table>
+    <?
 } else {
     echo "No hay reportes médicos registrados.";
 }

@@ -17,8 +17,8 @@ $sql1 = "SELECT * FROM personal
 $personal = $conexion->query($sql1);
 
 if ($personal->num_rows > 0) {
-    echo "
-    <table border='1'>
+    ?>
+    <table>
         <tr>
             <th>DNI</th>
             <th>Nombres</th>
@@ -26,18 +26,17 @@ if ($personal->num_rows > 0) {
             <th>Trabajo Principal</th>
             <th>Finca Asignada</th>
             <th>Acciones</th>
-        </tr>";
+        </tr>
     
-    // Iterar a través de los resultados de personal
+    <?php
     while($row = $personal->fetch_assoc()) {
-        echo "<tr>
-                <td>".$row["dni"]."</td>
-                <td>".$row["nombres"]."</td>
-                <td>".$row["apellidos"]."</td>
-                <td>".$row["trabajo_principal"]."</td>
-                <td>";
-        
-        // Obtener el nombre de la finca asociada
+        ?><tr>
+                <td><?=$row["dni"]?></td>
+                <td><?=$row["nombres"]?></td>
+                <td><?=$row["apellidos"]?></td>
+                <td><?=$row["trabajo_principal"]?></td>
+                <td>
+        <?php
         $sql2 = "SELECT nombre FROM finca 
                  WHERE id IN (SELECT finca_id FROM finca_has_personal WHERE personal_dni = '".$row["dni"]."')";
         $finca_result = $conexion->query($sql2);
@@ -50,21 +49,25 @@ if ($personal->num_rows > 0) {
         } else {
             echo "Sin asignar";
         }
-        
-        echo "</td>
+        ?>
+       </td>
               <td>
                 <form method='POST' action='update_personal.php'>
-                    <input type='hidden' name='dni' value='".$row['dni']."'>
+                    <input type='hidden' name='dni' value='<?=$row['dni']?>'>
                     <input type='submit' value='Editar'>
                 </form> 
                 <form method='POST' action='delete_personal.php'>
-                    <input type='hidden' name='dni' value='".$row['dni']."'>
+                    <input type='hidden' name='dni' value='<?=$row['dni']?>'>
                     <input type='submit' value='Eliminar'>
                 </form>
               </td>
-            </tr>";
+            </tr>
+            <?php
     }
-    echo "</table>";
+
+    ?>
+    </table>
+    <?php
 } else {
     echo "No hay registros de personal asignado a sus fincas.";
 }

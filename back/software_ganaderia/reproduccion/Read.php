@@ -31,10 +31,12 @@ session_start();
                     </thead>
                     <tbody>";
             while($row = $result->fetch_assoc()) {
-                
+                $modo="SELECT * from modo_concepcion where id = $row[modo_concepcion] ";
+                $concepcion=$conexion->query($modo);
+                $nombre_modo_concepcion=$concepcion->fetch_assoc();
                 echo "<tr>
                         <td>".$row["fecha_deteccion"]."</td>
-                        <td>".$row["modo_concepcion"]."</td>
+                        <td>".$nombre_modo_concepcion["nombre_modo"]."</td>
                         <td>".$row["fecha_estimada_de_parto"]."</td>
                         <td>".$row["fecha_aproximada_parto"]."</td>
                         <td>".$row["descripcion"]."</td>

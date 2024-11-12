@@ -14,8 +14,8 @@ $sql = "SELECT * FROM enfermedades";
 $enfermedades = $conexion->query($sql);
 
 if ($enfermedades->num_rows > 0) {
-    echo "
-    <table border='1'>
+    ?>
+    <table>
         <tr>
             <th>Tipo</th>
             <th>Descripción</th>
@@ -23,7 +23,9 @@ if ($enfermedades->num_rows > 0) {
             <th>Síntomas</th>
             <th>Transmisible</th>
             <th>Acciones</th>
-        </tr>";
+        </tr>
+
+        <?php
     
     while($row = $enfermedades->fetch_assoc()) {
         // Usar un if para determinar si el valor es "Sí" o "No"
@@ -33,26 +35,29 @@ if ($enfermedades->num_rows > 0) {
             $transmisible_text = "No";
         }
         
-        echo "<tr>
-                <td>".$row["tipo"]."</td>
-                <td>".$row["descripcion"]."</td>
-                <td>".$row["posible_causa"]."</td>
-                <td>".$row["sintomas"]."</td>
-                <td>".$transmisible_text."</td>
+        ?><tr>
+                <td><?=$row["tipo"]?></td>
+                <td><?=$row["descripcion"]?></td>
+                <td><?=$row["posible_causa"]?></td>
+                <td><?=$row["sintomas"]?></td>
+                <td><?=$transmisible_text?></td>
                 <td>
                     <form method='POST' action='update_enfermedades.php' style='display:inline;'>
-                        <input type='hidden' name='idenfermedades' value='".$row['idenfermedades']."'>
+                        <input type='hidden' name='idenfermedades' value='<?=$row['idenfermedades']?>'>
                         <input type='submit' value='Editar'>
                     </form>
                     
                     <form method='POST' action='delete_enfermedades.php' style='display:inline;'>
-                        <input type='hidden' name='idenfermedades' value='".$row['idenfermedades']."'>
+                        <input type='hidden' name='idenfermedades' value='<?=$row['idenfermedades']?>'>
                         <input type='submit' value='Eliminar'>
                     </form>
                 </td>
-            </tr>";
+            </tr>
+            <?php
     }
-    echo "</table>";
+    ?></table>
+
+    <?php
 } else {
     echo "No hay registros de enfermedades";
 }

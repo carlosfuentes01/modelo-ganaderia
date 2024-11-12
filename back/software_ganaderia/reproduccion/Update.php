@@ -1,6 +1,6 @@
 <!-- update.php -->
 
-<a href="Read.php">ir a </a>
+<a href="Read.php">ir a pagina principal</a>
 <?php
 include '../../conexion/conexion.php';
 session_start();
