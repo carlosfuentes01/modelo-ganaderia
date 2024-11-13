@@ -1,0 +1,49 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px; /* Ajusta según sea necesario */
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    background-color: #343a40; /* Color de fondo del sidebar */
+    color: white; /* Color del texto */
+}
+
+.navbar {
+    width: calc(100% - 280px); /* Ajusta el ancho restando el ancho del sidebar */
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 280px; /* Mueve el navbar a la derecha del sidebar */
+    z-index: 1; /* Asegúrate de que el navbar esté por encima del contenido */
+    background-color: #f8f9fa; /* Color de fondo del navbar */
+}
+
+.contenedor {
+    background-color: red;
+    margin-top: 60px; /* Espacio para el navbar */
+    margin-left: 280px; /* Espacio para el sidebar */
+    height: calc(100vh - 60px); /* Ajusta la altura restando la altura del navbar */
+    width: calc(100% - 280px); /* Para que ocupe el resto del espacio */
+    display: flex; /* Para centrar contenido si lo deseas */
+    /* Centrar verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+    flex-direction: column;
+    position: relative; /* Asegúrate de que sea relative */
+}
+#imglogo{
+    width: 0;
+    object-fit: cover;
+    flex-grow: 1;
+}
+.logo{
+    display: flex;
+    margin-top: 5px;
+    width: 670px;
+    height: 170px;
+}
+
+.ContenedorInformacion{
+    background-color: bisque;
+    width: 80em;
+    height: 200px;
+}

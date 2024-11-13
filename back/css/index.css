@@ -1,0 +1,30 @@
+body{
+
+    background: linear-gradient(to top right, rgba(0, 196, 246, 0.854), rgb(28, 196, 126)); /* Degradado de izquierda a derecha */
+  min-height: 100vh; /* Asegura que el fondo cubra toda la altura de la ventana */
+  margin: 0;
+   
+}
+.contenedor{
+   
+    width: 80dvw;
+
+}
+
+.texto,.registrar{
+    width: 50%;
+   
+}
+
+.texto{
+    background: linear-gradient(to left, rgba(2, 99, 255, 0.854), rgb(81, 178, 213));
+    color: #ffff;
+}
+
+.registrar{
+    background-color: #ffff;
+}
+
+.inputs{ 
+    width: 28dvw;
+}

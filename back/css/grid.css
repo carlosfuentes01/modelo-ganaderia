@@ -1,0 +1,310 @@
+html,body{
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    
+}
+.funciones p{
+   text-align: justify; 
+}
+.sidebar{
+    min-height: 100dvh;
+    width: 100%;
+    font-size: 1rem;
+}
+@media (max-width: 768px) {
+    .funciones p{
+        font-size: 0.9rem;
+        font-weight: bold;
+    }
+    .funciones{
+        margin-right: 20px;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .ilustraciones{
+        
+        height: 160px !important;
+        width: 70% !important;
+
+       
+    }
+    #logo{
+        width: 230px !important;
+    height: 60px !important;
+   
+    }
+    #ContenedorFunciones{
+        flex-direction: column;
+    }
+    .sidebar {
+        flex-shrink: 0; /* Evita que el sidebar se encoja */
+        overflow-y: auto;
+        font-weight: bold;
+        font-size: 0.6rem; /* Tamaño de letra aún más pequeño en pantallas muy pequeñas */
+    }
+}
+
+@media (max-width: 640px) {
+    .funciones p{
+        font-size: 0.9rem;
+        font-weight: bold;
+    }
+    .funciones{
+        margin-right: 20px;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .ilustraciones{
+        
+        height: 135px !important;
+        width: 70% !important;
+
+       
+    }
+    #logo{
+        width: 230px !important;
+    height: 60px !important;
+   
+    }
+    #ContenedorFunciones{
+        flex-direction: column;
+    }
+    .sidebar {
+        flex-shrink: 0; /* Evita que el sidebar se encoja */
+        overflow-y: auto;
+        font-weight: bold;
+        font-size: 0.6rem; /* Tamaño de letra aún más pequeño en pantallas muy pequeñas */
+    }
+}
+@media (max-width: 529px) {
+    .funciones p{
+        font-size: 0.9rem;
+        font-weight: bold;
+    }
+    .funciones{
+        margin-right: 20px;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .ilustraciones{
+        
+        height: 125px !important;
+        width: 70% !important;
+
+       
+    }
+    #logo{
+        width: 230px !important;
+    height: 60px !important;
+   
+    }
+    #ContenedorFunciones{
+        flex-direction: column;
+    }
+    .sidebar {
+        flex-shrink: 0; /* Evita que el sidebar se encoja */
+        overflow-y: auto;
+        font-weight: bold;
+        font-size: 0.6rem; /* Tamaño de letra aún más pequeño en pantallas muy pequeñas */
+    }
+}
+
+@media (max-width: 483px) {
+    .funciones p{
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+    .funciones{
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .ilustraciones{
+        
+        height: 135px !important;
+        width: 70% !important;
+
+       
+    }
+    #logo{
+        width: 230px !important;
+    height: 60px !important;
+   
+    }
+    #ContenedorFunciones{
+        flex-direction: column;
+    }
+    .sidebar {
+        flex-shrink: 0; /* Evita que el sidebar se encoja */
+        overflow-y: auto;
+        font-weight: bold;
+        font-size: 0.6rem; /* Tamaño de letra aún más pequeño en pantallas muy pequeñas */
+    }
+}
+
+@media (max-width: 470px) {
+    .funciones p{
+        font-size: 0.6rem;
+        font-weight: bold;
+    }
+    .funciones{
+        margin-right: 20px;
+    margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .ilustraciones{
+        
+        height: 115px !important;
+        width: 70% !important;
+
+       
+    }
+    #logo{
+        width: 230px !important;
+    height: 60px !important;
+   
+    }
+    #ContenedorFunciones{
+        flex-direction: column;
+    }
+    .sidebar {
+        flex-shrink: 0; /* Evita que el sidebar se encoja */
+        overflow-y: auto;
+        font-weight: bold;
+        font-size: 0.6rem; /* Tamaño de letra aún más pequeño en pantallas muy pequeñas */
+    }
+}
+@media (max-width: 400px) {
+    .funciones p{
+        font-size: 0.5rem;
+        font-weight: bold;
+    }
+    .funciones{
+        margin-right: 20px;
+    margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .ilustraciones{
+        
+        height: 100px !important;
+        width: 70% !important;
+
+       
+    }
+    #logo{
+        width: 230px !important;
+    height: 60px !important;
+   
+    }
+    #ContenedorFunciones{
+        flex-direction: column;
+    }
+    .sidebar {
+        flex-shrink: 0; /* Evita que el sidebar se encoja */
+        overflow-y: auto;
+        font-weight: bold;
+        font-size: 0.6rem; /* Tamaño de letra aún más pequeño en pantallas muy pequeñas */
+    }
+}
+#BarraLateral,#BloqueContenedor{
+
+}
+#BarraLateral{
+    width: 25%;
+    background-color: aqua;
+    min-height: 100dvh;
+    flex-shrink: 0; /* Evita que el sidebar se encoja */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+    
+}
+#BloqueContenedor{
+   
+    width: 75%;
+    min-height: 100dvh;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+   
+}
+
+#navbar{
+   
+    width: 100%;
+    
+}
+
+#ContenedorFunciones{
+    display: flex;
+    width: 97%;
+   
+    
+}
+.BotonFun{
+    margin-bottom: 5px;
+    width: 100%;
+}
+.funciones{
+    margin-right: 70px;
+    margin-left: 70px;
+    flex-wrap: 200px;
+    
+    border-bottom: 3px solid black;
+    
+}
+
+
+#logo{
+    display: flex;
+    width: 320px;
+    height: 200px;
+   
+}
+#LogoCowAlly{
+    display: flex;
+    flex-direction: column;
+   width: 100%;
+   align-items: center;
+  
+}
+#cow{
+    width: 0;
+    object-fit: cover;
+    flex-grow: 1;
+}
+.ilustraciones{
+    height: 250px;
+    display: flex;
+    width: 100%;
+   
+}
+
+.CentrarBoton{
+    display: flex;  
+    width: 100%;
+justify-content: center;
+
+}
+.Ilus{
+    width: 0;
+    object-fit: cover;
+    flex-grow: 1;
+}
