@@ -79,7 +79,8 @@ if (isset($_POST['vaca'])) {
         // Actualizar tratamientos seleccionados
         $conexion->query("DELETE FROM reporte_medico_has_tratamiento WHERE reporte_medico_id_reporte = $id_reporte");
         
-        if (!empty($_POST['tratamientos'])) {
+        // Aseguramos que el campo esté definido y sea un array
+        if (isset($_POST['tratamientos']) && is_array($_POST['tratamientos'])) {
             foreach ($_POST['tratamientos'] as $tratamiento_id) {
                 $sql_enfermedad = "SELECT enfermedades_idenfermedades FROM tratamiento WHERE idtratamiento = $tratamiento_id";
                 $resultado_enfermedad = $conexion->query($sql_enfermedad);
