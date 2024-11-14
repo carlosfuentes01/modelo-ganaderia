@@ -8,7 +8,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <?php
 include '../conexion/conexion.php'; // Incluye la conexión a la base de datos
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <input type="submit" class="mx-5 mt-3 btn btn-primary inputs"></button>
             <div class="d-flex justify-content-center mx-5 inputs mt-3">
-                <p class="">¿Ya tienes una cuenta? <a href="">Inicia sesion aqui</a></p>
+                <p class="">¿Ya tienes una cuenta? <a href="./login.php">Inicia sesion aqui</a></p>
             </div>
 
 

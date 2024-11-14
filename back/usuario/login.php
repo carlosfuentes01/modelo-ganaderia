@@ -1,3 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesion</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+
+<body class="d-flex justify-content-center mx-auto p-5">
 <?php
 session_start();
 include '../conexion/conexion.php'; // Conexión a la base de datos
@@ -30,11 +45,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
-<!-- Formulario de inicio de sesión -->
-<h2>Iniciar Sesión</h2>
 <form method="POST" action="">
-    dni: <input type="text" name="dni" required><br>
-    Contraseña: <input type="password" name="contra" required><br>
-    <input type="submit" value="Iniciar Sesión">
-</form>
+    <div class="d-flex 
+     contenedor border rounded-4" id="">
+     
+        <div class=" border rounded-start-4 texto d-flex flex-column justify-content-center">
+            <h1 class="mx-5">¡Bienvenido!</h1>
+            <p class="mx-5">Gestiona tu software ganadero de manera eficiente. Inicia sesión con tus datos para
+                continuar.</p>
+        </div>
+        <!-- Input de Nombre -->
+        <div class=" border rounded-end-4 registrar d-flex flex-column justify-content-center">
+       
+
+<form id="lo" method="POST" action="">
+            <p class="mx-5"><b>DNI</b></p>
+             <!-- Input de DNI -->
+            <div class="input-group mb-3 inputs mx-5">
+                <span class="input-group-text" id="basic-addon1">@</span>
+                <input type="Number" name="dni" class="form-control" placeholder="DNI" aria-describedby="basic-addon1" required>
+            </div>
+           
+            <p class="mx-5"><b>Contraseña</b></p>
+            <!-- Input de Correo Contraseña -->
+            <div class="input-group mb-3 inputs mx-5">
+                <span class="input-group-text" id="basic-addon1">*</span>
+                <input type="password" name="contra" class="form-control" placeholder="Contraseña" aria-describedby="basic-addon1" required>
+            </div>
+
+            <input type="submit" value="Iniciar Sesión" onclick="send()" type="submit" class="mx-5 mt-3 btn btn-primary inputs"></button>
+            <div class="d-flex justify-content-center mx-5 inputs mt-3">
+                <p class="">¿No tienes cuenta? <a href="./registro.php">registrate aqui</a></p>
+            </div>
+            </form>
+<script>function send(){
+    document.getElementById("lo").submit();
+}
+</script>
+
+        </div>
+    </div>
+    </form>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+</html>
+
+
+
+
