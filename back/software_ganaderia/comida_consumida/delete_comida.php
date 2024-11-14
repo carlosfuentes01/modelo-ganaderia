@@ -1,17 +1,20 @@
 <?php
 include '../../conexion/conexion.php';
 
-if (isset($_GET['vacas_id_animal']) && isset($_GET['inventario_id'])) {
-    $vacas_id_animal = $_GET['vacas_id_animal'];
-    $inventario_id = $_GET['inventario_id'];
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['comida_id'])) {
+    $comida_id = $_GET['comida_id'];
 
-    $sql = "DELETE FROM comida_consumida WHERE vacas_id_animal='$vacas_id_animal' AND inventario_id='$inventario_id'";
+    // Ejecutamos la consulta para eliminar usando el ID único
+    $sql = "DELETE FROM comida_consumida WHERE id='$comida_id'";
+
     if ($conexion->query($sql) === TRUE) {
         echo "Registro eliminado exitosamente.";
     } else {
-        echo "Error: " . $sql . "<br>" . $conexion->error;
+        echo "Error al eliminar el registro: " . $conexion->error;
     }
+} else {
+    echo "ID de comida no proporcionado.";
 }
 ?>
-<a href="read_comida.php">Volver a la lista de registros de comida consumida</a>
 
+<a href="read_comida.php">Volver a la lista de registros de comida consumida</a>
