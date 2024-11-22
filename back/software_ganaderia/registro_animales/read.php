@@ -26,7 +26,7 @@
     session_start();
     // Verifica si el usuario está autenticado
     if (!isset($_SESSION['dni'])) {
-        header("Location: login.php");
+        header("Location: ../../usuario/login.php");
         exit;
     }
     $sesion = $_SESSION['dni'];
@@ -102,19 +102,22 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">Home</a>
+                    <a href="#" class="nav-link active" aria-current="page">Leche</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">Dashboard</a>
+                    <a href="#" class="nav-link text-white">Perfil animal</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">Orders</a>
+                    <a href="#" class="nav-link text-white">Total leche</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">Products</a>
+                    <a href="#" class="nav-link text-white">Produccion mes actual</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">Customers</a>
+                    <a href="read_potrero.php" class="nav-link text-white">Administrar potreros</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">ver razas</a>
                 </li>
             </ul>
             <hr>
@@ -140,7 +143,7 @@
         <div id="navbar">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Navbar</a>
+                    <a class="navbar-brand" href="#"></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -219,7 +222,7 @@
                                                 <!-- SELECCIONAR RAZA Y NOMBRE -->
 
                                         </section>
-                                        <form method="POST" action="">
+                                        <form id="se" method="POST" action="">
 
                                             Identificación: <input type="text" name="identificacion" required><br>
                                             Nombre: <input type="text" name="nombre"><br>
@@ -269,7 +272,7 @@
                                                 ?>
                                             </select>
                                             <br>
-                                            <input type="submit" value="Registrar">
+                                            
 
 
 
@@ -279,8 +282,13 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary">REGISTRAR VACA</button>
+                                        <button type="button" onclick="cr()" class="btn btn-primary">REGISTRAR VACA</button>
                                     </div>
+                                    <script>
+                                        function cr(params) {
+                                            document.getElementById("se").submit();
+                                        }
+                                    </script>
                                 </div>
                             </div>
                         </div>

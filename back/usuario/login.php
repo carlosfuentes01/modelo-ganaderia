@@ -12,7 +12,7 @@
 </head>
 
 
-<body class="d-flex justify-content-center mx-auto p-5">
+
 <?php
 session_start();
 include '../conexion/conexion.php'; // Conexión a la base de datos
@@ -41,10 +41,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          // Redirige a la página de usuario
         exit;
     } else {
-        echo "Correo o contraseña incorrectos.";
+        ?>
+        
+	<div class="alert alert-danger" role="alert" >
+  dni y/o contraseña incorrecta
+</div>
+<?php
+
     }
 }
 ?>
+<body class="d-flex justify-content-center mx-auto p-5"></body>
 <form method="POST" action="">
     <div class="d-flex 
      contenedor border rounded-4" id="">

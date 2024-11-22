@@ -13,6 +13,8 @@ $sql = "DELETE FROM vacas WHERE id=$id";
 
 if ($conexion->query($sql) === TRUE ) {
     echo "Registro eliminado exitosamente";
+    header("Location: read.php");
+    exit();
 } else {
     echo "Error: " . $conexion->error;
 }

@@ -5,10 +5,9 @@ include '../../conexion/conexion.php';
 session_start();
 
 if (!isset($_SESSION['dni'])) {
-    header("Location: login.php");
+    header("Location: ../../usuario/login.php");
     exit;
 }
-
 $sesion = $_SESSION['dni'];
 
 // Consulta para obtener los aspectos físicos de las vacas en las fincas asociadas al usuario

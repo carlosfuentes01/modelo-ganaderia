@@ -16,10 +16,9 @@ include '../conexion/conexion.php'; // Conexión a la base de datos
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dni = $_POST['dni'];
-    $contraseña = $_POST['contraseña'];
+    $contra = $_POST['contra'];
 
-    // Busca al usuario con el correo electrónico y la contraseña
-    $sql = "SELECT * FROM usuario WHERE dni = '$dni' AND contraseña = '$contraseña'";
+    $sql = "SELECT * FROM usuario WHERE dni = '$dni' AND contra = '$contra'";
     $result = $conexion->query($sql);
 
     if ($result->num_rows == 1) {
@@ -56,15 +55,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         
             <p class="mx-5"><b>Contraseña</b></p>
-            <!-- Input de Correo Contraseña -->
             <div class="input-group mb-3 inputs mx-5">
                 <span class="input-group-text" id="basic-addon1">*</span>
-                <input type="password" name="contraseña" class="form-control" placeholder="Contraseña" aria-describedby="basic-addon1" required>
+                <input type="password" name="contra" class="form-control" placeholder="Contraseña" aria-describedby="basic-addon1" required>
             </div>
 
             <button type="submit" class="mx-5 mt-3 btn btn-primary inputs">Iniciar sesión</button>
             <div class="d-flex justify-content-center mx-5 inputs mt-3">
-                <p class=""><a href="">¿Olvidaste tu contraseña?</a><br>¿No tienes una cuenta? <a href="">Registrate aqui</a></p>
+                <p class=""><a href="">¿Olvidaste tu contraseña?</a><br>¿No tienes una cuenta? <a href="registro.php">Registrate aqui</a></p>
                 
                 
             </div>
