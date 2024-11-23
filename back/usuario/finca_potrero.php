@@ -9,8 +9,8 @@ if (!isset($_SESSION['dni'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre_finca = $_POST['nombre_finca'];
-    $nombre_potrero = $_POST['nombre_potrero'];
+    $nombre_finca = $_POST['finca'];
+    $nombre_potrero = $_POST['potrero'];
     $dni = $_SESSION['dni']; // DNI del usuario autenticado, guardado en la sesión
 
     // Inserta los datos de la finca
@@ -24,8 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql_potrero = "INSERT INTO potrero (finca_id, nombre) VALUES ('$finca_id', '$nombre_potrero')";
 
         if ($conexion->query($sql_potrero) === TRUE) {
-            echo "Finca y potrero creados exitosamente! 
-            ";
+            header("Location: ../software_ganaderia/registro_animales/read.php"); // Redirige a la página de usuario
+           
+            
         } else {
             echo "Error al crear el potrero: " . $conexion->error;
         }
@@ -36,12 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!-- Formulario para crear una finca y un potrero -->
-<h2>Crear Finca y Potrero</h2>
-<form method="POST" action="">
-    Nombre de la Finca: <input type="text" name="nombre_finca" required><br>
-    Nombre del Potrero: <input type="text" name="nombre_potrero" required><br>
-    <input type="submit" value="Crear Finca y Potrero">
-</form>
 
 
 <!DOCTYPE html>
@@ -49,9 +44,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Primerizo Cowally</title>
 </head>
-<body>
-    
+<body >
+<form method="POST" action="">
+            <h1 >Crear Finca y Potrero</h1>
+            <p>Finca</p>
+                <input type="text" name="finca"  placeholder="nombre de finca"  required>
+            <p>Potrero</p> 
+                <input type="text" name="potrero"  placeholder="nombre de potrero" required>
+            <button type="submit">Crear</button>
+    </form>
 </body>
+
 </html>

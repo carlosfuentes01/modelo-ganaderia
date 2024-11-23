@@ -26,8 +26,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Guarda el DNI del usuario en la sesión
         $_SESSION['dni'] = $row['dni'];
         $_SESSION['username'] = $row['usuario'];
-        echo "Inicio de sesión exitoso!";
-        header("Location: ver_usuario.php"); // Redirige a la página de usuario
+        $sql2= "SELECT count(*) FROM potrero WHERE finca_id = (select id from finca where '$dni'=usuario_dni)";
+        $finca_existente=$conexion->query($sql2);
+        $verificar_finca=$finca_existente->fetch_assoc();
+        if ($verificar_finca["count(*)"] >=1){
+            header("Location: ../software_ganaderia/registro_animales/read.php"); // Redirige a la página de usuario
+        }else{
+            header("Location: finca_potrero.php"); // Redirige a la creacion de primer potrero 
+        }
+        
         exit;
     } else {
         echo "DNI o contraseña incorrectos.";
