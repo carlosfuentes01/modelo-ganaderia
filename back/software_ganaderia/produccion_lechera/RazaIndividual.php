@@ -8,7 +8,7 @@
     $NombreRaza = $_POST["raza"];
     session_start();
     if (!isset($_SESSION['dni'])) {
-        header("Location: ../../usuario/login.php");
+        header("Location: ../../usuario/iniciar_sesion.php");
         exit;
     }
 $sesion = $_SESSION['dni'];
@@ -106,7 +106,7 @@ ORDER BY
                     <a href="#" class="nav-link text-white">Produccion mes actual</a>
                 </li>
                 <li>
-                    <a href="../registro_animales/read_potrero.php class="nav-link text-white">Administrar potreros</a>
+                    <a href="../registro_animales/read" class="nav-link text-white">Administrar potreros</a>
                 </li>
                 <li>
                     <a href="#" class="nav-link text-white">ver razas</a>

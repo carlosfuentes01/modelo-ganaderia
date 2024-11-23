@@ -4,9 +4,10 @@ session_start();
 
 // Verifica si el usuario está autenticado
 if (!isset($_SESSION['dni'])) {
-    header("Location: login.php");
+    header("Location: ../../usuario/iniciar_sesion.php");
     exit;
 }
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tipo = $_POST['tipo'];

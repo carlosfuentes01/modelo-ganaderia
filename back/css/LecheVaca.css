@@ -1,0 +1,27 @@
+#Grafica{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+}
+#Contenedor{
+    width: 100%;
+  height: 70dvh;
+}
+.Informacion div{
+    width: 50%;
+    
+}
+.Buscar{
+   width:  65%;
+}
+#Botones{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#Botones div{
+margin-right: 25px;
+    
+}

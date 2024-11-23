@@ -29,7 +29,7 @@
     include '../../conexion/conexion.php';
     session_start();
     if (!isset($_SESSION['dni'])) {
-        header("Location: ../../usuario/login.php");
+        header("Location: ../../usuario/iniciar_sesion.php");
         exit;
     }
     $sesion = $_SESSION['dni'];

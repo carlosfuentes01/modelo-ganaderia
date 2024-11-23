@@ -4,7 +4,7 @@
 include "../../conexion/conexion.php";
 session_start();
 if (!isset($_SESSION['dni'])) {
-    header("Location: ../../usuario/login.php");
+    header("Location: ../../usuario/iniciar_sesion.php");
     exit;
 }
 $sesion = $_SESSION['dni'];
@@ -144,7 +144,7 @@ $sesion = $_SESSION['dni'];
             };
             $.ajax({
                 data: parametros,
-                url: '../../php/ajax/GraficaLecheTotal.php',
+                url: '../../ajax/leche/GraficaLecheTotal.php',
                 type: 'POST',
 
                 beforeSend: function () {

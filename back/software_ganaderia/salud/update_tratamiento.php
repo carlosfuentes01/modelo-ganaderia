@@ -5,9 +5,10 @@ session_start();
 
 // Verifica si el usuario está autenticado
 if (!isset($_SESSION['dni'])) {
-    header("Location: login.php");
+    header("Location: ../../usuario/iniciar_sesion.php");
     exit;
 }
+
 
 // Obtener el ID del tratamiento a actualizar
 $idtratamiento = $_REQUEST['idtratamiento'];

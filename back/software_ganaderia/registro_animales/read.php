@@ -26,7 +26,7 @@
     session_start();
     // Verifica si el usuario está autenticado
     if (!isset($_SESSION['dni'])) {
-        header("Location: ../../usuario/login.php");
+        header("Location: ../../usuario/iniciar_sesion.php");
         exit;
     }
     $sesion = $_SESSION['dni'];
@@ -165,7 +165,7 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">Seleccionar Raza</a>
 
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <form id="EnviarRaza" action="./leche/RazaIndividual.php" method="post">
+                                    <form id="EnviarRaza" action="../produccion_lechera/RazaIndividual.php" method="post">
                                         <?php
                                         $Razas = $conexion->query("SELECT * FROM raza");
                                         while ($data = $Razas->fetch_object()) {

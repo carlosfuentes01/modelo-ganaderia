@@ -9,9 +9,9 @@ if (!isset($_SESSION['dni'])) {
 $sesion = $_SESSION['dni'];
 $id_Raza = $_POST["raza"];
 $hoy = date("t");
-echo "$id_Raza.'hola'";
+echo $id_Raza."'hola'";
 echo "<script>
-console.log('<?=$id_Raza?>'+'Hola');
+console.log('$id_Raza'+'Hola');
 </script>";
 $queryleche="SELECT day(fecha),sum(litros_leche) FROM	produccion_lechera
 where Month(fecha) = Month(curdate()) and year(fecha)=year(curdate()) and produccion_lechera.vacas_id in (select vacas.id from vacas where 

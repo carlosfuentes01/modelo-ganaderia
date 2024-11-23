@@ -1,0 +1,15 @@
+
+#Grafica{
+ 
+    display: flex;
+    justify-content: center;
+  
+    height: 100dvh;
+}
+#Grafica div{
+  width: 50%;
+}
+#Contenedor{
+  
+  height: 90dvh;
+}

@@ -4,9 +4,10 @@ include '../../conexion/conexion.php';
 session_start();
 
 if (!isset($_SESSION['dni'])) {
-    header("Location: login.php");
+    header("Location: ../../usuario/iniciar_sesion.php");
     exit;
 }
+
 
 $hoy = date("Y-n-d");  
 $sesion = $_SESSION['dni'];
