@@ -8,6 +8,8 @@ if (!isset($_SESSION['dni'])) {
 }
 $sesion = $_SESSION['dni'];
 
+date("n");
+$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
 ?>
 <html lang="en">
@@ -107,25 +109,52 @@ $sesion = $_SESSION['dni'];
 
         <div class="Informacion  mt-3 d-flex">
             <div>
-            <form class="d-flex ms-5 Buscar">
-                <input class="form-control me-2" type="search" placeholder="ID de vaca" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </form>
+                <form class="d-flex ms-5 Buscar">
+                    <input class="form-control me-2" type="search" placeholder="ID de vaca" aria-label="Search"
+                        name="identificacion">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
             </div>
 
             <div class="fs-4">
-                <p>Raza: Potrero: Estado:</p>
+                
+                <p><?php
+                 if (!(isset($_REQUEST['identificacion'])) || $_REQUEST['identificacion'] == "" || $_REQUEST['identificacion'] === null) {
+                    echo ''; #confirma de que se ha enviado algo
+                } else {
+                    $query_confirmacion = "SELECT identificacion from vacas where vacas.identificacion = '$_REQUEST[identificacion]' and vacas.potrero_id in
+ (select id from potrero where finca_id =
+ (select id from finca where usuario_dni = $sesion))";
+                    $conexion_confirmacion = $conexion->query($query_confirmacion);
+                    $confirmar = $conexion_confirmacion->fetch_assoc();
+                    if ($confirmar["identificacion"]==$_REQUEST["identificacion"]) {
+                        #como ya se confirmo que le pertenecia al usuario, ya no se tiene que hacer esa misma confirmacion despues
+                        # confirma de que existe una vaca con esa identificacion
+                        $sql1="SELECT nombre from potrero where potrero.id =(select potrero_id from vacas where identificacion = '$_REQUEST[identificacion]')";
+                        $conexion_potrero=$conexion->query($sql1);
+                        $potrero=$conexion_potrero->fetch_assoc();
+                        $sql2="SELECT * FROM raza
+                    where id_raza in(select raza_id_raza from razas_de_la_vaca
+                    where vacas_id_animal =(select vacas.id from vacas where identificacion = '$_REQUEST[identificacion]'))";
+                    $conexion_raza=$conexion->query($sql2);
+                    $raza=$conexion_raza->fetch_assoc();
+                        echo " Raza: ".$raza['nombre'];
+                        echo " Potrero: ".$potrero['nombre'];
+                    }
+                } ?>
+                    <?= $meses[date('n')-1]?>
+                </p>
             </div>
 
         </div>
         <div id="Grafica" class="d-flex flex-column">
             <div id="Contenedor"></div>
             <div id="Botones" class="d-flex">
-            <div><button class="btn btn-primary">Registro medico</button></div>
-            <div><button class="btn btn-danger">Genealogia</button></div>
+                <div><button class="btn btn-primary">Registro medico</button></div>
+                <div><button class="btn btn-danger">Genealogia</button></div>
+            </div>
         </div>
-        </div>
-       
+
 
 
 
@@ -137,25 +166,31 @@ $sesion = $_SESSION['dni'];
     <script>
         function GraficaTotal() {
             var parametros =
-            {
-                "nombre": "dostin",
-                "apellido": "hurtado",
-                "telefono": "123456789"
+                {
+                    "identificacion_vaca": "<?php
+                    if (!(isset($_REQUEST['identificacion'])) || $_REQUEST['identificacion'] == "" || $_REQUEST['identificacion'] === null) {
+                        echo 'nada';
+                    } else {
+
+                        echo $_REQUEST['identificacion'];
+                    } ?>",
+        "apellido": "hurtado",
+            "telefono": "123456789"
             };
-            $.ajax({
-                data: parametros,
-                url: '../../php/ajax/GraficaLecheTotal.php',
-                type: 'POST',
+        $.ajax({
+            data: parametros,
+            url: '../../ajax/leche/GraficaLecheIndividual.php',
+            type: 'POST',
 
-                beforeSend: function () {
-                    $('#Contenedor').html("Mensjae antes de enviar");
+            beforeSend: function () {
+                $('#Contenedor').html("Mensjae antes de enviar");
 
-                },
-                success: function (mensaje_mostrar) {
-                    $('#Contenedor').html(mensaje_mostrar);
+            },
+            success: function (mensaje_mostrar) {
+                $('#Contenedor').html(mensaje_mostrar);
 
-                }
-            });
+            }
+        });
 
         }
         window.onload = function () {
