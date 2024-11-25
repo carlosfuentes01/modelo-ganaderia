@@ -28,9 +28,10 @@
 
     // Verifica si el usuario está autenticado
     if (!isset($_SESSION['dni'])) {
-        header("Location: login.php");
+        header("Location: ../../usuario/iniciar_sesion.php");
         exit;
     }
+    
 
  // Consulta principal para obtener todos los tratamientos, incluyendo las enfermedades asociadas
 $sql_tratamientos = "SELECT tratamiento.*, enfermedades.tipo AS tipo_enfermedad 

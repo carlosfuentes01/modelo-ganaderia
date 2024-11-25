@@ -4,7 +4,7 @@ include '../../conexion/conexion.php';
 session_start();
 // Verifica si el usuario está autenticado
 if (!isset($_SESSION['dni'])) {
-    header("Location: login.php");
+    header("Location: ../../usuario/iniciar_sesion.php");
     exit;
 }
 $sesion = $_SESSION['dni'];
@@ -92,7 +92,7 @@ while ($intro_razas = $razas->fetch_assoc()) {
     <?php
     while ($raza_input = $razas->fetch_assoc()) {
         ?>
-        <input type="checkbox" name="<?php echo $raza_input['id_raza']; ?>" value=<?php echo $raza_input['id_raza']; ?>>
+        <input required type="checkbox" name="<?php echo $raza_input['id_raza']; ?>" value=<?php echo $raza_input['id_raza']; ?>>
         <label for="raza"> <?php echo $raza_input['nombre']; ?></label><br>
         <?php
     }

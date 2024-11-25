@@ -28,10 +28,10 @@
     session_start();
 
     if (!isset($_SESSION['dni'])) {
-        header("Location: login.php");
+        header("Location: ../../usuario/iniciar_sesion.php");
         exit;
     }
-
+    
     $sesion = $_SESSION['dni'];
 
     $sql1 = "

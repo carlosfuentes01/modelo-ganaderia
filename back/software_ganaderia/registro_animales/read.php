@@ -27,7 +27,7 @@
     session_start();
     // Verifica si el usuario está autenticado
     if (!isset($_SESSION['dni'])) {
-        header("Location: login.php");
+        header("Location: ../../usuario/iniciar_sesion.php");
         exit;
     }
     $sesion = $_SESSION['dni'];
@@ -230,7 +230,7 @@
                                                 <!-- SELECCIONAR RAZA Y NOMBRE -->
 
                                         </section>
-                                        <form method="POST" action="">
+                                        <form id="se" method="POST" action="">
 
                                             Identificación: <input type="text" name="identificacion" required><br>
                                             Nombre: <input type="text" name="nombre"><br>
@@ -280,7 +280,7 @@
                                                 ?>
                                             </select>
                                             <br>
-                                            <input type="submit" value="Registrar">
+                                            
 
 
 
@@ -290,8 +290,13 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary">REGISTRAR VACA</button>
+                                        <button type="button" onclick="cr()" class="btn btn-primary">REGISTRAR VACA</button>
                                     </div>
+                                    <script>
+                                        function cr(params) {
+                                            document.getElementById("se").submit();
+                                        }
+                                    </script>
                                 </div>
                             </div>
                         </div>

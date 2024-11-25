@@ -8,6 +8,7 @@ $port=3306;
 date_default_timezone_set('America/Bogota');
 $conexion=mysqli_connect($host,$user, $pass, $bd,$port);
 if(!$conexion){
+	
 	die("Problemas con la conexión".mysql_connect_error());
 }
 

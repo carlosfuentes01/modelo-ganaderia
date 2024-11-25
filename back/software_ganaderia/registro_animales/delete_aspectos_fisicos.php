@@ -5,10 +5,9 @@ session_start();
 
 // Verifica si el usuario está autenticado
 if (!isset($_SESSION['dni'])) {
-    header("Location: login.php");
+    header("Location: ../../usuario/iniciar_sesion.php");
     exit;
 }
-
 $aspecto_id = $_REQUEST['aspecto_id'];
 
 // Ejecuta la consulta de eliminación

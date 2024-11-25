@@ -22,10 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dni = $_POST['dni'];
 
     // Inserta los datos en la tabla usuario
-    $sql_usuario = "INSERT INTO usuario (dni, usuario, gmail, contraseña) VALUES ('$dni', '$username', '$email', '$contraseña')";
+    $sql_usuario = "INSERT INTO usuario (dni, usuario, gmail, contra) VALUES ('$dni', '$username', '$email', '$contraseña')";
 
     if ($conexion->query($sql_usuario) === TRUE) {
-        echo "Usuario registrado exitosamente!";
+        header("Location: login.php");
     } else {
         echo "Error al registrar el usuario: " . $conexion->error;
     }
