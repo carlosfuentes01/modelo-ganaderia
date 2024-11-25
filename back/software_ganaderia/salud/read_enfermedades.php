@@ -9,6 +9,7 @@
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/14.0.0/material-components-web.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://kit.fontawesome.com/3d5e1e5029.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.material.js"></script>
     <link rel="stylesheet"
@@ -16,7 +17,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.material.css">
     <link rel="stylesheet" href="../../css/AdministradorVacas.css">
     <link rel="stylesheet" href="../../css/Nav.css">
-    <title>Grid Layout</title>
+    <title>Gestionar enfermedades</title>
 
 </head>
 
@@ -38,49 +39,58 @@
     <div id="query" style="display: none;"></div>
     <div id="BarraLateral">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sidebar">
-            <span class="fs-4">Sidebar</span>
+            <span class="fs-4">CowAlly</span>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">Home</a>
+                    <a href="../produccion_lechera/read_produccion_lechera.php" class="nav-link text-white" aria-current="page"><i class="fa-solid fa-clipboard-check" style="color: #ff0000;"></i>  GESTIONAR LECHE</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">Dashboard</a>
+                    <a href="../registro_animales/read_aspectos_fisicos.php" class="nav-link text-white"><i class="fa-solid fa-cow" style="color: #ff0000;"></i>  GESTIONAR ASPECTOS FISICOS</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">Orders</a>
+                    <a href="../produccion_lechera/LecheTotal.php" class="nav-link text-white"><i class="fa-solid fa-square-poll-vertical" style="color: #ff0000;"></i> TOTAL DE LECHE</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">Products</a>
+                    <a href="#" class="nav-link text-white"><i class="fa-solid fa-chart-simple"style="color: #ff0000;"></i>  PRODUCCION DE LECHE MES ACTUAL</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">Customers</a>
+                    <a href="../registro_animales/read_potrero.php" class="nav-link text-white"><i class="fa-solid fa-house-flag "style="color: #ff0000;"></i>  ADMINISTRAR POTREROS</a>
+                </li>
+                <li>
+                    <a href="../registro_animales/read.php" class="nav-link text-white"><i class="fa-solid fa-clipboard-check" style="color: #ff0000;"></i>  GESTIONAR VACAS</a>
+
+                </li>
+                <li>
+                    <a href="../salud/read_reporte_medico.php" class="nav-link  text-white"><i class="fa-solid fa-clipboard-check" style="color: #ff0000;"></i>  GESTIONAR REPORTES MEDICOS</a>
+
+                </li>
+                <li>
+                    <a href="../salud/read_tratamiento.php" class="nav-link text-white"><i class="fa-solid fa-kit-medical" style="color: #ff0000;"></i>  GESTIONAR TRATAMIENTO</a>
+
+                </li>
+                <li>
+                    <a href="../salud/read_enfermedades.php" class="nav-link active  text-white"><i class="fa-solid fa-code-merge" style="color: #ff0000;"></i>  GESTIONAR ENFERMEDAD</a>
+                  
+                </li>
+                <li>
+                    <a href="../reproduccion/Read.php" class="nav-link  text-white"><i class="fa-solid fa-code-fork" style="color: #ff0000;"></i>  GESTIONAR EMBARAZOS</a>
+                   
+                </li>
+                <li>
+                    <a href="../inventario/read_inventario.php" class="nav-link  text-white"><i class="fa-solid fa-layer-group" style="color: #ff0000;"></i> GESTIONAR INVENTARIOS</a>
+
                 </li>
             </ul>
             <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>mdo</strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
-            </div>
+          
         </div>
     </div>
     <div id="BloqueContenedor">
-        <div id="navbar">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div id="navbar">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Navbar</a>
+                    <a class="navbar-brand" href="#">CowAlly</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -89,20 +99,21 @@
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-hat-cowboy-side" style="color: #ff0000;"></i>  VER PERSONAL</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Features</a>
+                                <a class="nav-link" href="../produccion_lechera/LecheVaca.php"><i class="fa-solid fa-droplet" style="color: #ff0000;"></i> VER LECHE PRODUCIDA INDIVIDUAL</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Pricing</a>
+                                <a class="nav-link" href="#"><i class="fa-solid fa-house-crack" style="color: #ff0026;"></i>  VER POTREROS</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">Seleccionar Raza</a>
+                                    data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-cow" style="color: #ff0000;"></i>  Seleccionar Raza</a>
 
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <form id="EnviarRaza" action="./leche/RazaIndividual.php" method="post">
+                                <form id="EnviarRaza" action="../produccion_lechera/RazaIndividual.php" method="post">
                                         <?php
                                         $Razas = $conexion->query("SELECT * FROM raza");
                                         while ($data = $Razas->fetch_object()) {
@@ -155,7 +166,7 @@
             <!-- BOTON DE ACTIVACION MODAL -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#ModalRegistrar">
-                Registrar vaca
+                Registrar enfermedad
             </button>
 
             <!-- MODAL REGISTRAR -->
@@ -203,13 +214,13 @@
             <table id="example" class="mdl-data-table" style="width:100%">
                 <thead>
                     <tr>
-                        <th><b>Tipo</b></th>
-                        <th><b>Descripción</b></th>
-                        <th><b>Posibles Causas</b></th>
-                        <th><b>Síntomas</b></th>
-                        <th><b>Transmisible</b></th>
-                        <th><b>Editar</b></th>
-                        <th><b>Borrar</b></th>
+                        <th><i class="fa-solid fa-disease" style="color: #00bd52;"></i>  <b>Tipo</b></th>
+                        <th><i class="fa-solid fa-comment-medical" style="color: #00bd52;"></i>  <b>Descripción</b></th>
+                        <th><i class="fa-solid fa-caret-down" style="color: #00bd52;"></i>  <b>Posibles Causas</b></th>
+                        <th><i class="fa-solid fa-virus-covid-slash" style="color: #00bd52;"></i><b>Síntomas</b></th>
+                        <th><i class="fa-solid fa-code-merge" style="color: #00bd52;"></i>  <b>Transmisible</b></th>
+                        <th><i class="fa-regular fa-pen-to-square" style="color: #00bd52;"></i>  <b>Editar</b></th>
+                        <th><i class="fa-solid fa-trash" style="color: #00bd52;"></i>  <b>Borrar</b></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -230,12 +241,12 @@
                             <td><?= $row["sintomas"] ?></td>
                             <td><?= $transmisible_text ?></td>
                             <td>
-                                <button class="btn btn-primary" onclick="Editar('<?= $row['idenfermedades'] ?>')">Editar</button>
+                                <button class="btn btn-primary" onclick="Editar('<?= $row['idenfermedades'] ?>')"><i class="fa-regular fa-pen-to-square" style="color: #00bd52;"></i>  Editar</button>
 
 
                             </td>
                             <td>
-                                <button class="btn btn-danger" onclick="Borrar('<?= $row['idenfermedades'] ?>')">Eliminar</button>
+                                <button class="btn btn-danger" onclick="Borrar('<?= $row['idenfermedades'] ?>')"><i class="fa-solid fa-trash" style="color: #00bd52;"></i>  Eliminar</button>
                             </td>
                         </tr>
                     <?php

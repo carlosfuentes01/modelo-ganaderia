@@ -1,0 +1,24 @@
+.InformacionRaza div{
+    width: 50%;
+    
+}
+.InformacionRaza{
+    height:500px !important;
+}
+
+#Grafica{
+    height: 500px;
+}
+
+.Vacas{
+    justify-content: center;
+
+    width: 200px;
+    height: 250px;
+}
+
+.Vacas img{
+  
+    object-fit: cover;
+    flex-grow: 1;
+}
